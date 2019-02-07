@@ -87,7 +87,7 @@ app_license = "MIT"
 #	}
 # }
 
- doc_events = {
+doc_events = {
  	"Program Enrollment": {
  		"before_submit": "add_enroll.add_enroll.program_enrollment.submit"
 	}
