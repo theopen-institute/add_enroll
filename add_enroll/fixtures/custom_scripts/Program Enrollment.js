@@ -18,7 +18,7 @@ frappe.ui.form.on("Program Enrollment", {
 		frm.set_df_property("_party", "hidden", 0);
 		frm.set_df_property("_party", "reqd", 1);
 		}
-	}
+	},
 
 	invoice: function(frm) {	
 	if(frm.doc.invoice != undefined){	
@@ -26,13 +26,13 @@ frappe.ui.form.on("Program Enrollment", {
 		}
 
 	else frm.set_df_property("generate", "hidden", 0);
-	}
+	},
 
 
   	_party: function(frm) {	
 		frm.set_value("invoice" , undefined);
 		frm.set_df_property("generate", "hidden", 0);
-		}
+		},
 
   	
   	generate: function(frm) {
