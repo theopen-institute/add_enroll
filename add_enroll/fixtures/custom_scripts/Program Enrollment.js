@@ -46,7 +46,7 @@ frappe.ui.form.on("Program Enrollment", {
 		frm.doc.courses.forEach(function(rows){ crs[i] = rows.course; i++; });
 		i = 0;frm.doc.fees.forEach(function(rows){ fee[i] = rows.fee_structure; i++; });
   		frappe.call({
-            method: "add_enroll.add_enroll.program_enrollment.make_inv",
+            method: "add_enroll.add_enroll.program_enrollment_override.make_inv",
             args:{
                     'customer': frm.doc._party,
                     'customer_name': frm.doc.student_name,

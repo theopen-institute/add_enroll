@@ -73,6 +73,6 @@ def suppress(self):
 		self.make_fee_records()
 
 
-def submit(doc, method):
-	msgprint(_("Overridden!"))	
+def submit_override(doc, method):
+	#msgprint(_("Overridden!"))	
 	ProgramEnrollment.on_submit = suppress
