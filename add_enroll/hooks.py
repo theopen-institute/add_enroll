@@ -131,3 +131,7 @@ doc_events = {
 #Fixtures, the heart and soul of this app
 #----------------------------------------
 fixtures = ["Custom Field","Custom Script"]
+
+###################################################################
+# NOTE: COMMENT OUT FIXTURE AND DELETE CUSTOM FIELD JSON AFtER DONE
+###################################################################
