@@ -56,7 +56,7 @@ def make_inv(customer, customer_name, due_date, courses, fees):
 				})
 	udoc.posting_date = frappe.utils.nowdate()
 	#Due date  = enrollment date	
-	udoc.due_date = due_date
+	#udoc.due_date = due_date
 	#saves only if there is at least one potential tx
 	if( count > 0 ):	
 		udoc.save()
