@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-# Copyright (c) 2015, Frappe and contributors
-# For license information, please see license.txt
 from __future__ import unicode_literals
 import frappe
 from frappe import msgprint, _
@@ -10,7 +7,6 @@ from erpnext.education.doctype.program_enrollment.program_enrollment import Prog
 from frappe.utils import comma_and
 from frappe import utils
 import json
-	
 
 @frappe.whitelist()
 def make_inv(customer, customer_name, due_date, courses, fees):
@@ -56,7 +52,7 @@ def make_inv(customer, customer_name, due_date, courses, fees):
 				})
 	udoc.posting_date = frappe.utils.nowdate()
 	#Due date  = enrollment date	
-	#udoc.due_date = due_date
+	udoc.due_date = frappe.utils.nowdate()
 	#saves only if there is at least one potential tx
 	if( count > 0 ):	
 		udoc.save()
@@ -64,7 +60,6 @@ def make_inv(customer, customer_name, due_date, courses, fees):
 	else:
 		msgprint(_("Invoice couldn't be generated : None of your courses or fee structures have an item group assigned."))
 		return			
-
 
 
 def suppress(self):
