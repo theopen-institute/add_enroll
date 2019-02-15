@@ -101,7 +101,7 @@
   "in_list_view": 0, 
   "in_standard_filter": 0, 
   "insert_after": "image", 
-  "label": "Make Sales Invoice Draft instead of Direct Entry", 
+  "label": "Make Sales Invoice Draft instead of direct entry in General Ledger", 
   "modified": "2019-02-14 15:15:05.644688", 
   "name": "Program Enrollment-sinvoice", 
   "no_copy": 0, 
