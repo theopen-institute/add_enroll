@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import msgprint, _
-#from frappe.model.document import Document
 from erpnext.education.doctype.program_enrollment.program_enrollment import ProgramEnrollment
 from frappe.utils import comma_and
 from frappe.utils.data import add_days

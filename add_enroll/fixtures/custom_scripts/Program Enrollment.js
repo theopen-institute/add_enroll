@@ -1,64 +1,64 @@
 frappe.ui.form.on("Program Enrollment", {
-	sinvoice: function(frm)
+	sinvoice: function(cur_frm)
 	{
-		if( frm.doc.sinvoice == 0)
+		if( cur_frm.doc.sinvoice == 0)
 		{
-		frm.set_value("invoice" , undefined);
-		frm.set_value("_party" , undefined);
-		frm.set_df_property("invoice", "hidden", 1);
-		frm.set_df_property("invoice", "reqd", 0);
-		frm.set_df_property("_party", "hidden", 1);
-		frm.set_df_property("_party", "reqd", 0);
-		frm.set_df_property("generate", "hidden", 1);
+		cur_frm.set_value("invoice" , undefined);
+		cur_frm.set_value("party" , undefined);
+		cur_frm.set_df_property("invoice", "hidden", 1);
+		cur_frm.set_df_property("invoice", "reqd", 0);
+		cur_frm.set_df_property("party", "hidden", 1);
+		cur_frm.set_df_property("party", "reqd", 0);
+		cur_frm.set_df_property("generate", "hidden", 1);
 		}
 
 		else{
-		frm.set_df_property("invoice", "hidden", 0);
-		frm.set_df_property("invoice", "reqd", 1);
-		frm.set_df_property("_party", "hidden", 0);
-		frm.set_df_property("_party", "reqd", 1);
+		cur_frm.set_df_property("invoice", "hidden", 0);
+		cur_frm.set_df_property("invoice", "reqd", 1);
+		cur_frm.set_df_property("party", "hidden", 0);
+		cur_frm.set_df_property("party", "reqd", 1);
 		}
 	},
 
-	invoice: function(frm) {	
-	if(frm.doc.invoice != undefined){	
-		frm.set_df_property("generate", "hidden", 1);
+	invoice: function(cur_frm) {	
+	if(cur_frm.doc.invoice != undefined){	
+		cur_frm.set_df_property("generate", "hidden", 1);
 		}
 
-	else frm.set_df_property("generate", "hidden", 0);
+	else cur_frm.set_df_property("generate", "hidden", 0);
 	},
 
 
-  	_party: function(frm) {	
-		frm.set_value("invoice" , undefined);
-		frm.set_df_property("generate", "hidden", 0);
+  	party: function(cur_frm) {	
+		cur_frm.set_value("invoice" , undefined);
+		cur_frm.set_df_property("generate", "hidden", 0);
 		},
 
   	
-  	generate: function(frm) {
+  	generate: function(cur_frm) {
 
-  		if(frm.doc.sinvoice == 0) return;
-  		if(frm.doc.courses == undefined || frm.doc.student == undefined || frm.doc._party == undefined)
+  		if(cur_frm.doc.sinvoice == 0) return;
+  		if(cur_frm.doc.courses == undefined || cur_frm.doc.student == undefined || cur_frm.doc.party == undefined)
   			{
   				frappe.msgprint("Form incomplete. Kindly fill the mandatory fields and try again."); return;
   			}
   		var crs = [], fee = [], i = 0;
-		frm.doc.courses.forEach(function(rows){ crs[i] = rows.course; i++; });
-		i = 0;frm.doc.fees.forEach(function(rows){ fee[i] = rows.fee_structure; i++; });
+		cur_frm.doc.courses.forEach(function(rows){ crs[i] = rows.course; i++; });
+		i = 0;cur_frm.doc.fees.forEach(function(rows){ fee[i] = rows.fee_structure; i++; });
   		frappe.call({
             method: "add_enroll.add_enroll.program_enrollment_override.make_inv",
             args:{
-                    'customer': frm.doc._party,
-                    'customer_name': frm.doc.student_name,
-                    'due_date': frm.doc.enrollment_date,
+                    'customer': cur_frm.doc.party,
+                    'customer_name': cur_frm.doc.student_name,
+                    'due_date': cur_frm.doc.enrollment_date,
                     'courses': crs,
                     'fees':fee,
                    },
             async: false,
             callback: function(r)
             {
-            	frm.set_value("invoice",r.message.name);
-            	frm.set_df_property("generate", "hidden", 1); 
+            	cur_frm.set_value("invoice",r.message.name);
+            	cur_frm.set_df_property("generate", "hidden", 1); 
             }
         });
 	}
