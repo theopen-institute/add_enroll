@@ -5,6 +5,7 @@ from erpnext.education.doctype.program_enrollment.program_enrollment import Prog
 from frappe.utils import comma_and
 from frappe.utils.data import add_days
 from frappe import utils
+from erpnext.controllers.accounts_controller import get_default_taxes_and_charges
 import json
 
 @frappe.whitelist()
@@ -14,7 +15,6 @@ def make_inv(customer, customer_name, due_date, courses, fees):
     courses = json.loads(courses)
     fees = json.loads(fees)
     udoc = frappe.new_doc("Sales Invoice")
-    udoc.naming_series = "ACC-SINV-.YYYY.-"
     udoc.customer = customer
     udoc.customer_name = customer_name
     #Fees
@@ -49,12 +49,11 @@ def make_inv(customer, customer_name, due_date, courses, fees):
                 'item_code': fdata.item,
                 'qty': '1',
                 })
+    udoc.set_posting_time = True
     udoc.posting_date = due_date
-    #Due date  is always a day ahead
-    due_date = 	frappe.utils.nowdate()
-    #Still Editable, need to remove scheduling
-    due_date = add_days(due_date, 1)
     udoc.due_date = due_date
+    udoc.posting_time = None
+    udoc.set_taxes()
     #saves only if there is at least one potential tx
     if( count > 0 ):	
         udoc.save()
